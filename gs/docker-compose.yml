@@ -17,6 +17,7 @@ services:
     links:
       - tlbbdb
       - webdb
+      - nginx
   # Game database
   tlbbdb:
     build:
@@ -68,5 +69,3 @@ services:
     environment:
       TZ: "$TZ"
     restart: ${RESTART}
-    networks:
-      - default
