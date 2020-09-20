@@ -78,3 +78,7 @@ WEBDB_PASSWORD=123456
 #
 # billing验证端口，请使用非3306的端口(不能超过65535，建议写大点的值，因为小值和一些特定的值是系统专用的)
 BILLING_PORT=21818
+#
+# 网站端口，NGINX_PORT为普通http访问的端口，NGINX_SSL_PORT为https访问的端口
+NGINX_PORT=8181
+NGINX_SSL_PORT=8443

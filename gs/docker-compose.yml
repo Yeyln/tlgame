@@ -55,8 +55,8 @@ services:
         NGINX_INSTALL_APPS: ${NGINX_INSTALL_APPS}
     container_name: nginx
     ports:
-      - "${NGINX_HTTP_HOST_PORT}:80"
-      - "${NGINX_HTTPS_HOST_PORT}:443"
+      - "${NGINX_HTTP_HOST_PORT}:${NGINX_PORT}"
+      - "${NGINX_HTTPS_HOST_PORT}:${NGINX_SSL_PORT}"
     volumes:
       - ${SHARED_DIR}/www:/www/:rw
       - ${NGINX_SSL_CERTIFICATE_DIR}:/ssl:rw
@@ -68,30 +68,5 @@ services:
     environment:
       TZ: "$TZ"
     restart: ${RESTART}
-    networks:
-      - default
-#PHP
-  php:
-    build:
-      context: ./services/php
-      args:
-        PHP_VERSION: php:${PHP_VERSION}-fpm-alpine
-        CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
-        PHP_EXTENSIONS: ${PHP_EXTENSIONS}
-        TZ: "$TZ"
-    container_name: php
-    expose:
-      - 9501
-    extra_hosts:
-      - "www.site1.com:172.17.0.1"
-    volumes:
-      - ${SHARED_DIR}/www:/www/:rw
-      - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
-      - ${PHP_LOG_DIR}:/var/log/php
-      - ${SHARED_DIR}/composer:/tmp/composer
-    restart: ${RESTART}
-    cap_add:
-      - SYS_PTRACE
     networks:
       - default
