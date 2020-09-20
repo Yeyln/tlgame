@@ -69,3 +69,5 @@ services:
     environment:
       TZ: "$TZ"
     restart: ${RESTART}
+    networks:
+      - default
